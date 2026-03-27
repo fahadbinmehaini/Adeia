@@ -1,0 +1,1356 @@
+<!DOCTYPE html>
+
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>أدعية المسلم</title>
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Noto+Naskh+Arabic:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --gold: #C9A84C;
+            --gold-light: #E8D48B;
+            --dark: #1A1A2E;
+            --dark-mid: #16213E;
+            --dark-light: #0F3460;
+            --cream: #F5F0E8;
+            --green: #2D6A4F;
+            --green-light: #40916C;
+            --white: #FEFCF3;
+        }
+
+```
+    /* Dark Mode — Pure Black AMOLED */
+    body.dark-mode {
+        --dark: #000000;
+        --dark-mid: #0A0A0A;
+        --dark-light: #141414;
+    }
+
+    body.dark-mode .dua-card {
+        background: linear-gradient(145deg, rgba(20, 20, 20, 0.9), rgba(10, 10, 10, 0.8));
+    }
+
+    body.dark-mode .prayer-card {
+        background: linear-gradient(145deg, rgba(20, 20, 20, 0.9), rgba(10, 10, 10, 0.8));
+    }
+
+    /* Theme Toggle */
+    .theme-toggle {
+        position: fixed;
+        top: 20px;
+        left: 20px;
+        width: 46px;
+        height: 46px;
+        border-radius: 50%;
+        background: rgba(201, 168, 76, 0.15);
+        border: 1px solid rgba(201, 168, 76, 0.3);
+        color: var(--gold);
+        font-size: 1.3rem;
+        cursor: pointer;
+        z-index: 20;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.4s ease;
+        backdrop-filter: blur(10px);
+    }
+
+    .theme-toggle:hover {
+        background: rgba(201, 168, 76, 0.3);
+        transform: scale(1.08);
+    }
+
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    body {
+        font-family: 'Noto Naskh Arabic', serif;
+        background: var(--dark);
+        color: var(--cream);
+        min-height: 100vh;
+        overflow-x: hidden;
+    }
+
+    /* Geometric Pattern Background */
+    body::before {
+        content: '';
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: 
+            radial-gradient(circle at 20% 50%, rgba(201, 168, 76, 0.05) 0%, transparent 50%),
+            radial-gradient(circle at 80% 20%, rgba(45, 106, 79, 0.08) 0%, transparent 50%),
+            radial-gradient(circle at 50% 80%, rgba(201, 168, 76, 0.03) 0%, transparent 50%);
+        pointer-events: none;
+        z-index: 0;
+    }
+
+    /* Islamic geometric pattern overlay */
+    .pattern-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        opacity: 0.03;
+        background-image: url("data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' stroke='%23C9A84C' stroke-width='1'%3E%3Cpath d='M40 0L80 40L40 80L0 40Z'/%3E%3Cpath d='M40 10L70 40L40 70L10 40Z'/%3E%3Cpath d='M40 20L60 40L40 60L20 40Z'/%3E%3C/g%3E%3C/svg%3E");
+        pointer-events: none;
+        z-index: 0;
+    }
+
+    /* Header */
+    .header {
+        position: relative;
+        z-index: 1;
+        text-align: center;
+        padding: 50px 20px 30px;
+    }
+
+    .bismillah {
+        font-family: 'Amiri', serif;
+        font-size: 2rem;
+        color: var(--gold);
+        margin-bottom: 10px;
+        opacity: 0;
+        animation: fadeDown 1s ease forwards;
+    }
+
+    .header h1 {
+        font-family: 'Amiri', serif;
+        font-size: 3rem;
+        color: var(--gold-light);
+        margin-bottom: 8px;
+        opacity: 0;
+        animation: fadeDown 1s ease 0.2s forwards;
+        text-shadow: 0 0 40px rgba(201, 168, 76, 0.3);
+    }
+
+    .header p {
+        font-size: 1.1rem;
+        color: rgba(245, 240, 232, 0.6);
+        opacity: 0;
+        animation: fadeDown 1s ease 0.4s forwards;
+    }
+
+    .ornament {
+        width: 200px;
+        height: 2px;
+        background: linear-gradient(90deg, transparent, var(--gold), transparent);
+        margin: 20px auto;
+        position: relative;
+        opacity: 0;
+        animation: fadeIn 1s ease 0.6s forwards;
+    }
+
+    .ornament::before {
+        content: '✦';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        color: var(--gold);
+        font-size: 1.2rem;
+        background: var(--dark);
+        padding: 0 15px;
+    }
+
+    /* Category Tabs */
+    .categories {
+        position: relative;
+        z-index: 1;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 10px;
+        padding: 10px 20px 30px;
+        max-width: 900px;
+        margin: 0 auto;
+    }
+
+    .cat-btn {
+        background: rgba(201, 168, 76, 0.08);
+        border: 1px solid rgba(201, 168, 76, 0.2);
+        color: var(--cream);
+        padding: 10px 22px;
+        border-radius: 30px;
+        cursor: pointer;
+        font-family: 'Noto Naskh Arabic', serif;
+        font-size: 0.95rem;
+        transition: all 0.4s ease;
+        opacity: 0;
+        animation: fadeUp 0.6s ease forwards;
+    }
+
+    .cat-btn:nth-child(1) { animation-delay: 0.5s; }
+    .cat-btn:nth-child(2) { animation-delay: 0.6s; }
+    .cat-btn:nth-child(3) { animation-delay: 0.7s; }
+    .cat-btn:nth-child(4) { animation-delay: 0.8s; }
+    .cat-btn:nth-child(5) { animation-delay: 0.9s; }
+    .cat-btn:nth-child(6) { animation-delay: 1.0s; }
+    .cat-btn:nth-child(7) { animation-delay: 1.1s; }
+    .cat-btn:nth-child(8) { animation-delay: 1.2s; }
+
+    .cat-btn:hover, .cat-btn.active {
+        background: linear-gradient(135deg, var(--gold), var(--green));
+        border-color: var(--gold);
+        color: var(--dark);
+        font-weight: 600;
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(201, 168, 76, 0.25);
+    }
+
+    /* Dua Cards Container */
+    .duas-container {
+        position: relative;
+        z-index: 1;
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 0 20px 60px;
+    }
+
+    .dua-card {
+        background: linear-gradient(145deg, rgba(22, 33, 62, 0.8), rgba(15, 52, 96, 0.4));
+        border: 1px solid rgba(201, 168, 76, 0.15);
+        border-radius: 20px;
+        padding: 35px 30px;
+        margin-bottom: 20px;
+        position: relative;
+        overflow: hidden;
+        transition: all 0.5s ease;
+        opacity: 0;
+        transform: translateY(30px);
+    }
+
+    .dua-card.visible {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    .dua-card::before {
+        content: '';
+        position: absolute;
+        top: -1px;
+        right: -1px;
+        width: 60px;
+        height: 60px;
+        background: linear-gradient(135deg, var(--gold), transparent);
+        border-radius: 0 20px 0 60px;
+        opacity: 0.3;
+    }
+
+    .dua-card:hover {
+        border-color: rgba(201, 168, 76, 0.4);
+        transform: translateY(-3px);
+        box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3), 0 0 30px rgba(201, 168, 76, 0.05);
+    }
+
+    .dua-category-label {
+        display: inline-block;
+        background: rgba(201, 168, 76, 0.15);
+        color: var(--gold-light);
+        padding: 4px 14px;
+        border-radius: 20px;
+        font-size: 0.8rem;
+        margin-bottom: 15px;
+    }
+
+    .dua-text {
+        font-family: 'Amiri', serif;
+        font-size: 1.65rem;
+        line-height: 2.2;
+        color: var(--white);
+        text-align: center;
+        margin-bottom: 20px;
+        padding: 15px 0;
+        border-bottom: 1px solid rgba(201, 168, 76, 0.1);
+    }
+
+    .dua-source {
+        text-align: center;
+        color: var(--gold);
+        font-size: 0.85rem;
+        margin-bottom: 15px;
+        font-style: italic;
+    }
+
+    .dua-translation {
+        text-align: center;
+        color: rgba(245, 240, 232, 0.7);
+        font-size: 1rem;
+        line-height: 1.9;
+    }
+
+    .dua-actions {
+        display: flex;
+        justify-content: center;
+        gap: 15px;
+        margin-top: 20px;
+        padding-top: 15px;
+        border-top: 1px solid rgba(201, 168, 76, 0.1);
+    }
+
+    .action-btn {
+        background: none;
+        border: 1px solid rgba(201, 168, 76, 0.25);
+        color: var(--gold-light);
+        padding: 8px 20px;
+        border-radius: 25px;
+        cursor: pointer;
+        font-family: 'Noto Naskh Arabic', serif;
+        font-size: 0.85rem;
+        transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+    }
+
+    .action-btn:hover {
+        background: rgba(201, 168, 76, 0.15);
+        border-color: var(--gold);
+    }
+
+    .action-btn.copied {
+        background: rgba(45, 106, 79, 0.3);
+        border-color: var(--green-light);
+        color: var(--green-light);
+    }
+
+    /* Counter Widget */
+    .counter-section {
+        position: relative;
+        z-index: 1;
+        text-align: center;
+        padding: 40px 20px;
+        max-width: 400px;
+        margin: 0 auto 40px;
+    }
+
+    .counter-title {
+        font-family: 'Amiri', serif;
+        font-size: 1.5rem;
+        color: var(--gold);
+        margin-bottom: 20px;
+    }
+
+    .counter-display {
+        font-family: 'Amiri', serif;
+        font-size: 4rem;
+        color: var(--gold-light);
+        margin-bottom: 20px;
+        text-shadow: 0 0 30px rgba(201, 168, 76, 0.3);
+        transition: transform 0.2s ease;
+    }
+
+    .counter-display.pulse {
+        transform: scale(1.15);
+    }
+
+    .counter-btn {
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, var(--gold), var(--green));
+        border: none;
+        color: var(--dark);
+        font-size: 2rem;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        box-shadow: 0 8px 30px rgba(201, 168, 76, 0.3);
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .counter-btn:hover {
+        transform: scale(1.08);
+        box-shadow: 0 12px 40px rgba(201, 168, 76, 0.4);
+    }
+
+    .counter-btn:active {
+        transform: scale(0.95);
+    }
+
+    .counter-reset {
+        display: block;
+        margin: 15px auto 0;
+        background: none;
+        border: none;
+        color: rgba(245, 240, 232, 0.4);
+        cursor: pointer;
+        font-family: 'Noto Naskh Arabic', serif;
+        font-size: 0.85rem;
+        transition: color 0.3s;
+    }
+
+    .counter-reset:hover {
+        color: var(--cream);
+    }
+
+    /* Footer */
+    .footer {
+        position: relative;
+        z-index: 1;
+        text-align: center;
+        padding: 40px 20px 50px;
+        color: rgba(245, 240, 232, 0.5);
+        font-size: 0.9rem;
+        border-top: 1px solid rgba(201, 168, 76, 0.15);
+        line-height: 2.2;
+    }
+
+    .footer .dedication-bismillah {
+        font-family: 'Amiri', serif;
+        font-size: 1.3rem;
+        color: var(--gold);
+        margin-bottom: 12px;
+    }
+
+    .footer .dedication-text {
+        color: rgba(245, 240, 232, 0.6);
+        font-size: 0.95rem;
+        max-width: 500px;
+        margin: 0 auto 10px;
+    }
+
+    .footer .dedication-dua {
+        font-family: 'Amiri', serif;
+        color: var(--gold-light);
+        font-size: 1rem;
+        opacity: 0.7;
+    }
+
+    /* Animations */
+    @keyframes fadeDown {
+        from { opacity: 0; transform: translateY(-20px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fadeUp {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fadeIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
+    }
+
+    /* Responsive */
+    @media (max-width: 600px) {
+        .header h1 { font-size: 2.2rem; }
+        .bismillah { font-size: 1.5rem; }
+        .dua-text { font-size: 1.35rem; }
+        .dua-card { padding: 25px 20px; }
+        .categories { gap: 8px; }
+        .cat-btn { padding: 8px 16px; font-size: 0.85rem; }
+    }
+
+    /* Scroll to top */
+    .scroll-top {
+        position: fixed;
+        bottom: 30px;
+        left: 30px;
+        width: 48px;
+        height: 48px;
+        border-radius: 50%;
+        background: rgba(201, 168, 76, 0.2);
+        border: 1px solid rgba(201, 168, 76, 0.3);
+        color: var(--gold);
+        font-size: 1.3rem;
+        cursor: pointer;
+        display: none;
+        align-items: center;
+        justify-content: center;
+        z-index: 10;
+        transition: all 0.3s ease;
+        backdrop-filter: blur(10px);
+    }
+
+    .scroll-top:hover {
+        background: rgba(201, 168, 76, 0.35);
+    }
+
+    .scroll-top.show {
+        display: flex;
+    }
+
+    /* No results */
+    .no-results {
+        text-align: center;
+        padding: 60px 20px;
+        color: rgba(245, 240, 232, 0.4);
+        font-size: 1.1rem;
+        display: none;
+    }
+
+    /* Quran Link */
+    .quran-link-section {
+        position: relative;
+        z-index: 1;
+        max-width: 500px;
+        margin: 0 auto 30px;
+        padding: 0 20px;
+        opacity: 0;
+        animation: fadeUp 0.8s ease 1.3s forwards;
+    }
+
+    .quran-link-btn {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 6px;
+        padding: 22px 30px;
+        background: linear-gradient(145deg, rgba(45, 106, 79, 0.25), rgba(201, 168, 76, 0.1));
+        border: 1px solid rgba(201, 168, 76, 0.25);
+        border-radius: 18px;
+        text-decoration: none;
+        transition: all 0.4s ease;
+    }
+
+    .quran-link-btn:hover {
+        border-color: var(--gold);
+        transform: translateY(-3px);
+        box-shadow: 0 12px 35px rgba(201, 168, 76, 0.2);
+        background: linear-gradient(145deg, rgba(45, 106, 79, 0.35), rgba(201, 168, 76, 0.15));
+    }
+
+    .quran-icon {
+        font-size: 2rem;
+    }
+
+    .quran-link-text {
+        font-family: 'Amiri', serif;
+        font-size: 1.4rem;
+        color: var(--gold-light);
+    }
+
+    .quran-link-sub {
+        font-size: 0.85rem;
+        color: rgba(245, 240, 232, 0.5);
+    }
+
+    /* Prayer Times */
+    .prayer-section {
+        position: relative;
+        z-index: 1;
+        max-width: 600px;
+        margin: 0 auto 30px;
+        padding: 0 20px;
+        opacity: 0;
+        animation: fadeUp 0.8s ease 1.4s forwards;
+    }
+
+    .prayer-title {
+        font-family: 'Amiri', serif;
+        font-size: 1.5rem;
+        color: var(--gold);
+        text-align: center;
+        margin-bottom: 8px;
+    }
+
+    .prayer-location {
+        text-align: center;
+        color: rgba(245, 240, 232, 0.5);
+        font-size: 0.85rem;
+        margin-bottom: 18px;
+    }
+
+    .prayer-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 10px;
+    }
+
+    .prayer-card {
+        background: linear-gradient(145deg, rgba(22, 33, 62, 0.8), rgba(15, 52, 96, 0.4));
+        border: 1px solid rgba(201, 168, 76, 0.15);
+        border-radius: 14px;
+        padding: 14px 10px;
+        text-align: center;
+        transition: all 0.3s ease;
+    }
+
+    .prayer-card:hover {
+        border-color: rgba(201, 168, 76, 0.4);
+    }
+
+    .prayer-card.active-prayer {
+        border-color: var(--gold);
+        background: linear-gradient(145deg, rgba(201, 168, 76, 0.15), rgba(45, 106, 79, 0.2));
+        box-shadow: 0 0 20px rgba(201, 168, 76, 0.15);
+    }
+
+    .prayer-name {
+        display: block;
+        font-family: 'Amiri', serif;
+        font-size: 1rem;
+        color: var(--gold-light);
+        margin-bottom: 6px;
+    }
+
+    .prayer-time {
+        display: block;
+        font-size: 1.15rem;
+        color: var(--white);
+        font-weight: 600;
+    }
+
+    .prayer-next {
+        text-align: center;
+        margin-top: 14px;
+        color: var(--green-light);
+        font-size: 0.9rem;
+    }
+
+    @media (max-width: 600px) {
+        .prayer-grid {
+            grid-template-columns: repeat(3, 1fr);
+            gap: 8px;
+        }
+        .prayer-card { padding: 12px 8px; }
+    }
+</style>
+```
+
+</head>
+<body>
+
+<div class="pattern-overlay"></div>
+<button class="theme-toggle" id="themeToggle" onclick="toggleTheme()">🌙</button>
+
+<header class="header">
+    <div class="bismillah">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</div>
+    <h1>أدعية المسلم</h1>
+    <p>مجموعة من الأدعية المأثورة من القرآن والسنة</p>
+    <div class="ornament"></div>
+</header>
+
+<nav class="categories" id="categories">
+    <button class="cat-btn active" data-cat="all">الكل</button>
+    <button class="cat-btn" data-cat="morning">أذكار الصباح</button>
+    <button class="cat-btn" data-cat="evening">أذكار المساء</button>
+    <button class="cat-btn" data-cat="quran">أدعية قرآنية</button>
+    <button class="cat-btn" data-cat="prophet">أدعية نبوية</button>
+    <button class="cat-btn" data-cat="daily">أدعية يومية</button>
+    <button class="cat-btn" data-cat="relief">أدعية الفرج</button>
+    <button class="cat-btn" data-cat="protection">تحصين النفس</button>
+    <button class="cat-btn" data-cat="friday">يوم الجمعة
+<br><button onclick="openKahf()">📖 سورة الكهف</button></button>
+</nav>
+
+<div class="quran-link-section">
+    <a href="https://quran.com/ar" target="_blank" class="quran-link-btn">
+        <span class="quran-icon">📖</span>
+        <span class="quran-link-text">المصحف الشريف</span>
+        <span class="quran-link-sub">اضغط لقراءة القرآن الكريم</span>
+    </a>
+</div>
+
+<div class="prayer-section" id="prayerSection">
+    <div class="prayer-title">🕌 مواقيت الصلاة</div>
+    <div class="prayer-location" id="prayerLocation">جاري تحديد موقعك...</div>
+    <div class="prayer-grid" id="prayerGrid">
+        <div class="prayer-card">
+            <span class="prayer-name">الفجر</span>
+            <span class="prayer-time" id="fajr">--:--</span>
+        </div>
+        <div class="prayer-card">
+            <span class="prayer-name">الشروق</span>
+            <span class="prayer-time" id="sunrise">--:--</span>
+        </div>
+        <div class="prayer-card">
+            <span class="prayer-name">الظهر</span>
+            <span class="prayer-time" id="dhuhr">--:--</span>
+        </div>
+        <div class="prayer-card">
+            <span class="prayer-name">العصر</span>
+            <span class="prayer-time" id="asr">--:--</span>
+        </div>
+        <div class="prayer-card">
+            <span class="prayer-name">المغرب</span>
+            <span class="prayer-time" id="maghrib">--:--</span>
+        </div>
+        <div class="prayer-card">
+            <span class="prayer-name">العشاء</span>
+            <span class="prayer-time" id="isha">--:--</span>
+        </div>
+    </div>
+    <div class="prayer-next" id="prayerNext"></div>
+</div>
+
+<div class="counter-section">
+    <div class="counter-title">سبحان الله وبحمده</div>
+    <div class="counter-display" id="counter">0</div>
+    <button class="counter-btn" id="counterBtn" onclick="incrementCounter()">+</button>
+    <button class="counter-reset" onclick="resetCounter()">إعادة تعيين</button>
+</div>
+
+<div class="duas-container" id="duasContainer"></div>
+
+<div class="no-results" id="noResults">لا توجد أدعية في هذا القسم</div>
+
+<footer class="footer">
+    <div class="dedication-bismillah">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</div>
+    <div class="dedication-text">هذا العمل خالصٌ لوجه الله تعالى، وصدقةٌ جارية عن كافة المسلمين والمسلمات، وعن أبناء أسرة المهيني وأسرة المحيا، أحيائهم وأمواتهم</div>
+    <div class="dedication-dua">اللهم تقبّل منّا إنّك أنت السميع العليم</div>
+</footer>
+
+<button class="scroll-top" id="scrollTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
+<script>
+const duas = [
+    {
+        category: "morning",
+        text: "أَصْبَحْنَا وَأَصْبَحَ الْمُلْكُ لِلَّهِ، وَالْحَمْدُ لِلَّهِ، لَا إِلَٰهَ إِلَّا اللَّهُ وَحْدَهُ لَا شَرِيكَ لَهُ، لَهُ الْمُلْكُ وَلَهُ الْحَمْدُ وَهُوَ عَلَىٰ كُلِّ شَيْءٍ قَدِيرٌ",
+        source: "صحيح مسلم",
+        translation: "أصبحنا وأصبح الملك لله والحمد لله، نسأل الله خير هذا اليوم"
+    },
+    {
+        category: "morning",
+        text: "اللَّهُمَّ بِكَ أَصْبَحْنَا، وَبِكَ أَمْسَيْنَا، وَبِكَ نَحْيَا، وَبِكَ نَمُوتُ، وَإِلَيْكَ النُّشُورُ",
+        source: "سنن الترمذي",
+        translation: "دعاء يُقال عند الاستيقاظ صباحاً"
+    },
+    {
+        category: "morning",
+        text: "اللَّهُمَّ إِنِّي أَسْأَلُكَ الْعَافِيَةَ فِي الدُّنْيَا وَالْآخِرَةِ، اللَّهُمَّ إِنِّي أَسْأَلُكَ الْعَفْوَ وَالْعَافِيَةَ فِي دِينِي وَدُنْيَايَ وَأَهْلِي وَمَالِي",
+        source: "سنن أبي داود",
+        translation: "سؤال الله العافية في الدين والدنيا والأهل والمال"
+    },
+    {
+        category: "morning",
+        text: "اللَّهُمَّ أَنْتَ رَبِّي لَا إِلَٰهَ إِلَّا أَنْتَ، خَلَقْتَنِي وَأَنَا عَبْدُكَ، وَأَنَا عَلَى عَهْدِكَ وَوَعْدِكَ مَا اسْتَطَعْتُ، أَعُوذُ بِكَ مِنْ شَرِّ مَا صَنَعْتُ، أَبُوءُ لَكَ بِنِعْمَتِكَ عَلَيَّ، وَأَبُوءُ بِذَنْبِي فَاغْفِرْ لِي، فَإِنَّهُ لَا يَغْفِرُ الذُّنُوبَ إِلَّا أَنْتَ",
+        source: "صحيح البخاري",
+        translation: "سيد الاستغفار — من قالها موقناً بها حين يمسي فمات من ليلته دخل الجنة"
+    },
+    {
+        category: "morning",
+        text: "اللَّهُ لَا إِلَٰهَ إِلَّا هُوَ الْحَيُّ الْقَيُّومُ ۚ لَا تَأْخُذُهُ سِنَةٌ وَلَا نَوْمٌ ۚ لَّهُ مَا فِي السَّمَاوَاتِ وَمَا فِي الْأَرْضِ ۗ مَن ذَا الَّذِي يَشْفَعُ عِندَهُ إِلَّا بِإِذْنِهِ ۚ يَعْلَمُ مَا بَيْنَ أَيْدِيهِمْ وَمَا خَلْفَهُمْ ۖ وَلَا يُحِيطُونَ بِشَيْءٍ مِّنْ عِلْمِهِ إِلَّا بِمَا شَاءَ ۚ وَسِعَ كُرْسِيُّهُ السَّمَاوَاتِ وَالْأَرْضَ ۖ وَلَا يَئُودُهُ حِفْظُهُمَا ۚ وَهُوَ الْعَلِيُّ الْعَظِيمُ",
+        source: "آية الكرسي - سورة البقرة آية ٢٥٥ - مرة واحدة",
+        translation: "أعظم آية في القرآن، من قرأها حين يصبح أُجير من الجن حتى يمسي"
+    },
+    {
+        category: "morning",
+        text: "قُلْ هُوَ اللَّهُ أَحَدٌ ۝ اللَّهُ الصَّمَدُ ۝ لَمْ يَلِدْ وَلَمْ يُولَدْ ۝ وَلَمْ يَكُن لَّهُ كُفُوًا أَحَدٌ",
+        source: "سورة الإخلاص - تقرأ ٣ مرات",
+        translation: "تعدل ثلث القرآن"
+    },
+    {
+        category: "morning",
+        text: "قُلْ أَعُوذُ بِرَبِّ الْفَلَقِ ۝ مِن شَرِّ مَا خَلَقَ ۝ وَمِن شَرِّ غَاسِقٍ إِذَا وَقَبَ ۝ وَمِن شَرِّ النَّفَّاثَاتِ فِي الْعُقَدِ ۝ وَمِن شَرِّ حَاسِدٍ إِذَا حَسَدَ",
+        source: "سورة الفلق - تقرأ ٣ مرات",
+        translation: "التعوذ بالله من شرور الخلق والحسد"
+    },
+    {
+        category: "morning",
+        text: "قُلْ أَعُوذُ بِرَبِّ النَّاسِ ۝ مَلِكِ النَّاسِ ۝ إِلَٰهِ النَّاسِ ۝ مِن شَرِّ الْوَسْوَاسِ الْخَنَّاسِ ۝ الَّذِي يُوَسْوِسُ فِي صُدُورِ النَّاسِ ۝ مِنَ الْجِنَّةِ وَالنَّاسِ",
+        source: "سورة الناس - تقرأ ٣ مرات",
+        translation: "التعوذ بالله من شر الوسواس"
+    },
+    {
+        category: "morning",
+        text: "بِسْمِ اللَّهِ الَّذِي لَا يَضُرُّ مَعَ اسْمِهِ شَيْءٌ فِي الْأَرْضِ وَلَا فِي السَّمَاءِ وَهُوَ السَّمِيعُ الْعَلِيمُ",
+        source: "سنن الترمذي - تقال ٣ مرات",
+        translation: "من قالها ثلاثاً حين يصبح وثلاثاً حين يمسي لم يضره شيء"
+    },
+    {
+        category: "morning",
+        text: "اللَّهُمَّ احْفَظْنِي مِنْ بَيْنِ يَدَيَّ وَمِنْ خَلْفِي وَعَنْ يَمِينِي وَعَنْ شِمَالِي وَمِنْ فَوْقِي، وَأَعُوذُ بِعَظَمَتِكَ أَنْ أُغْتَالَ مِنْ تَحْتِي",
+        source: "سنن أبي داود وصححه الألباني",
+        translation: "سؤال الله الحفظ من جميع الجهات"
+    },
+    {
+        category: "morning",
+        text: "اللَّهُمَّ صَلِّ وَسَلِّمْ عَلَى نَبِيِّنَا مُحَمَّدٍ",
+        source: "١٠ مرات",
+        translation: "من صلّى عليّ حين يصبح عشراً وحين يمسي عشراً أدركته شفاعتي يوم القيامة"
+    },
+    {
+        category: "morning",
+        text: "أَسْتَغْفِرُ اللَّهَ وَأَتُوبُ إِلَيْهِ",
+        source: "١٠٠ مرة",
+        translation: "من لزم الاستغفار جعل الله له من كل همٍّ فرجاً ومن كل ضيقٍ مخرجاً"
+    },
+    {
+        category: "morning",
+        text: "سُبْحَانَ اللَّهِ وَبِحَمْدِهِ",
+        source: "١٠٠ مرة",
+        translation: "من قالها مائة مرة حين يصبح وحين يمسي لم يأت أحد يوم القيامة بأفضل مما جاء به"
+    },
+    {
+        category: "evening",
+        text: "أَمْسَيْنَا وَأَمْسَى الْمُلْكُ لِلَّهِ، وَالْحَمْدُ لِلَّهِ، لَا إِلَٰهَ إِلَّا اللَّهُ وَحْدَهُ لَا شَرِيكَ لَهُ",
+        source: "صحيح مسلم",
+        translation: "أمسينا وأمسى الملك لله، نسأل الله خير هذه الليلة"
+    },
+    {
+        category: "evening",
+        text: "اللَّهُمَّ مَا أَمْسَى بِي مِنْ نِعْمَةٍ أَوْ بِأَحَدٍ مِنْ خَلْقِكَ فَمِنْكَ وَحْدَكَ لَا شَرِيكَ لَكَ، فَلَكَ الْحَمْدُ وَلَكَ الشُّكْرُ",
+        source: "سنن أبي داود",
+        translation: "الاعتراف بنعم الله وشكره عليها"
+    },
+    {
+        category: "evening",
+        text: "أَعُوذُ بِكَلِمَاتِ اللَّهِ التَّامَّاتِ مِنْ شَرِّ مَا خَلَقَ",
+        source: "صحيح مسلم",
+        translation: "التعوذ بكلمات الله من كل شر - تقال ثلاث مرات"
+    },
+    {
+        category: "quran",
+        text: "رَبَّنَا آتِنَا فِي الدُّنْيَا حَسَنَةً وَفِي الْآخِرَةِ حَسَنَةً وَقِنَا عَذَابَ النَّارِ",
+        source: "سورة البقرة - آية ٢٠١",
+        translation: "من أجمع الأدعية القرآنية للخير في الدنيا والآخرة"
+    },
+    {
+        category: "quran",
+        text: "رَبِّ اشْرَحْ لِي صَدْرِي وَيَسِّرْ لِي أَمْرِي وَاحْلُلْ عُقْدَةً مِنْ لِسَانِي يَفْقَهُوا قَوْلِي",
+        source: "سورة طه - آية ٢٥-٢٨",
+        translation: "دعاء موسى عليه السلام لتيسير أمره"
+    },
+    {
+        category: "quran",
+        text: "رَبَّنَا لَا تُزِغْ قُلُوبَنَا بَعْدَ إِذْ هَدَيْتَنَا وَهَبْ لَنَا مِنْ لَدُنْكَ رَحْمَةً إِنَّكَ أَنْتَ الْوَهَّابُ",
+        source: "سورة آل عمران - آية ٨",
+        translation: "سؤال الله الثبات على الهداية"
+    },
+    {
+        category: "quran",
+        text: "رَبِّ أَوْزِعْنِي أَنْ أَشْكُرَ نِعْمَتَكَ الَّتِي أَنْعَمْتَ عَلَيَّ وَعَلَىٰ وَالِدَيَّ وَأَنْ أَعْمَلَ صَالِحًا تَرْضَاهُ",
+        source: "سورة النمل - آية ١٩",
+        translation: "دعاء سليمان عليه السلام لشكر نعم الله"
+    },
+    {
+        category: "prophet",
+        text: "اللَّهُمَّ إِنِّي أَعُوذُ بِكَ مِنَ الْهَمِّ وَالْحَزَنِ، وَأَعُوذُ بِكَ مِنَ الْعَجْزِ وَالْكَسَلِ، وَأَعُوذُ بِكَ مِنَ الْجُبْنِ وَالْبُخْلِ، وَأَعُوذُ بِكَ مِنْ غَلَبَةِ الدَّيْنِ وَقَهْرِ الرِّجَالِ",
+        source: "صحيح البخاري",
+        translation: "التعوذ من الهم والحزن والعجز والكسل"
+    },
+    {
+        category: "prophet",
+        text: "اللَّهُمَّ أَصْلِحْ لِي دِينِي الَّذِي هُوَ عِصْمَةُ أَمْرِي، وَأَصْلِحْ لِي دُنْيَايَ الَّتِي فِيهَا مَعَاشِي، وَأَصْلِحْ لِي آخِرَتِي الَّتِي فِيهَا مَعَادِي",
+        source: "صحيح مسلم",
+        translation: "سؤال الله إصلاح الدين والدنيا والآخرة"
+    },
+    {
+        category: "prophet",
+        text: "اللَّهُمَّ إِنِّي أَسْأَلُكَ الْهُدَى وَالتُّقَى وَالْعَفَافَ وَالْغِنَى",
+        source: "صحيح مسلم",
+        translation: "من جوامع دعاء النبي ﷺ"
+    },
+    {
+        category: "daily",
+        text: "بِسْمِ اللَّهِ الَّذِي لَا يَضُرُّ مَعَ اسْمِهِ شَيْءٌ فِي الْأَرْضِ وَلَا فِي السَّمَاءِ وَهُوَ السَّمِيعُ الْعَلِيمُ",
+        source: "سنن الترمذي",
+        translation: "تقال ثلاث مرات صباحاً ومساءً للحفظ"
+    },
+    {
+        category: "daily",
+        text: "اللَّهُمَّ بَارِكْ لَنَا فِيمَا رَزَقْتَنَا وَقِنَا عَذَابَ النَّارِ، بِسْمِ اللَّهِ",
+        source: "دعاء الطعام",
+        translation: "يقال قبل الأكل طلباً للبركة"
+    },
+    {
+        category: "daily",
+        text: "الْحَمْدُ لِلَّهِ الَّذِي أَطْعَمَنِي هَٰذَا وَرَزَقَنِيهِ مِنْ غَيْرِ حَوْلٍ مِنِّي وَلَا قُوَّةٍ",
+        source: "سنن الترمذي",
+        translation: "يقال بعد الانتهاء من الطعام"
+    },
+    {
+        category: "daily",
+        text: "سُبْحَانَكَ اللَّهُمَّ رَبَّنَا وَبِحَمْدِكَ، اللَّهُمَّ اغْفِرْ لِي",
+        source: "صحيح البخاري",
+        translation: "يقال عند الخروج من الخلاء"
+    },
+    {
+        category: "relief",
+        text: "لَا إِلَٰهَ إِلَّا أَنْتَ سُبْحَانَكَ إِنِّي كُنْتُ مِنَ الظَّالِمِينَ",
+        source: "سورة الأنبياء - آية ٨٧",
+        translation: "دعاء يونس عليه السلام - من أعظم أدعية الفرج"
+    },
+    {
+        category: "relief",
+        text: "لَا إِلَٰهَ إِلَّا اللَّهُ الْعَظِيمُ الْحَلِيمُ، لَا إِلَٰهَ إِلَّا اللَّهُ رَبُّ الْعَرْشِ الْعَظِيمِ، لَا إِلَٰهَ إِلَّا اللَّهُ رَبُّ السَّمَاوَاتِ وَرَبُّ الْأَرْضِ وَرَبُّ الْعَرْشِ الْكَرِيمِ",
+        source: "صحيح البخاري ومسلم",
+        translation: "دعاء الكرب والشدة"
+    },
+    {
+        category: "relief",
+        text: "اللَّهُمَّ رَحْمَتَكَ أَرْجُو فَلَا تَكِلْنِي إِلَى نَفْسِي طَرْفَةَ عَيْنٍ، وَأَصْلِحْ لِي شَأْنِي كُلَّهُ، لَا إِلَٰهَ إِلَّا أَنْتَ",
+        source: "سنن أبي داود",
+        translation: "التوكل على الله وسؤاله الإصلاح"
+    },
+    {
+        category: "relief",
+        text: "حَسْبُنَا اللَّهُ وَنِعْمَ الْوَكِيلُ",
+        source: "سورة آل عمران - آية ١٧٣",
+        translation: "كلمة التوكل على الله في الشدائد"
+    },
+    {
+        category: "protection",
+        text: "قُلْ هُوَ اللَّهُ أَحَدٌ ۝ اللَّهُ الصَّمَدُ ۝ لَمْ يَلِدْ وَلَمْ يُولَدْ ۝ وَلَمْ يَكُن لَّهُ كُفُوًا أَحَدٌ",
+        source: "سورة الإخلاص - تقرأ ٣ مرات",
+        translation: "من أعظم سور التحصين، تعدل ثلث القرآن"
+    },
+    {
+        category: "protection",
+        text: "قُلْ أَعُوذُ بِرَبِّ الْفَلَقِ ۝ مِن شَرِّ مَا خَلَقَ ۝ وَمِن شَرِّ غَاسِقٍ إِذَا وَقَبَ ۝ وَمِن شَرِّ النَّفَّاثَاتِ فِي الْعُقَدِ ۝ وَمِن شَرِّ حَاسِدٍ إِذَا حَسَدَ",
+        source: "سورة الفلق - تقرأ ٣ مرات",
+        translation: "التعوذ بالله من شرور الخلق والحسد"
+    },
+    {
+        category: "protection",
+        text: "قُلْ أَعُوذُ بِرَبِّ النَّاسِ ۝ مَلِكِ النَّاسِ ۝ إِلَٰهِ النَّاسِ ۝ مِن شَرِّ الْوَسْوَاسِ الْخَنَّاسِ ۝ الَّذِي يُوَسْوِسُ فِي صُدُورِ النَّاسِ ۝ مِنَ الْجِنَّةِ وَالنَّاسِ",
+        source: "سورة الناس - تقرأ ٣ مرات",
+        translation: "التعوذ بالله من شر الوسواس"
+    },
+    {
+        category: "protection",
+        text: "اللَّهُ لَا إِلَٰهَ إِلَّا هُوَ الْحَيُّ الْقَيُّومُ ۚ لَا تَأْخُذُهُ سِنَةٌ وَلَا نَوْمٌ ۚ لَّهُ مَا فِي السَّمَاوَاتِ وَمَا فِي الْأَرْضِ ۗ مَن ذَا الَّذِي يَشْفَعُ عِندَهُ إِلَّا بِإِذْنِهِ ۚ يَعْلَمُ مَا بَيْنَ أَيْدِيهِمْ وَمَا خَلْفَهُمْ ۖ وَلَا يُحِيطُونَ بِشَيْءٍ مِّنْ عِلْمِهِ إِلَّا بِمَا شَاءَ ۚ وَسِعَ كُرْسِيُّهُ السَّمَاوَاتِ وَالْأَرْضَ ۖ وَلَا يَئُودُهُ حِفْظُهُمَا ۚ وَهُوَ الْعَلِيُّ الْعَظِيمُ",
+        source: "آية الكرسي - سورة البقرة آية ٢٥٥",
+        translation: "أعظم آية في القرآن، من قرأها حين يمسي لم يزل عليه من الله حافظ"
+    },
+    {
+        category: "protection",
+        text: "أَعُوذُ بِكَلِمَاتِ اللَّهِ التَّامَّاتِ مِنْ شَرِّ مَا خَلَقَ",
+        source: "صحيح مسلم - تقال ٣ مرات",
+        translation: "من قالها حين يمسي ثلاث مرات لم تضره حُمَة تلك الليلة"
+    },
+    {
+        category: "protection",
+        text: "بِسْمِ اللَّهِ الَّذِي لَا يَضُرُّ مَعَ اسْمِهِ شَيْءٌ فِي الْأَرْضِ وَلَا فِي السَّمَاءِ وَهُوَ السَّمِيعُ الْعَلِيمُ",
+        source: "سنن الترمذي - تقال ٣ مرات",
+        translation: "من قالها ثلاثاً حين يصبح وثلاثاً حين يمسي لم يضره شيء"
+    },
+    {
+        category: "protection",
+        text: "اللَّهُمَّ إِنِّي أَعُوذُ بِكَ مِنْ شَرِّ نَفْسِي وَمِنْ شَرِّ كُلِّ دَابَّةٍ أَنْتَ آخِذٌ بِنَاصِيَتِهَا، إِنَّ رَبِّي عَلَىٰ صِرَاطٍ مُسْتَقِيمٍ",
+        source: "صحيح - رواه الطبراني",
+        translation: "التعوذ من شر النفس وشر كل مخلوق"
+    },
+    {
+        category: "protection",
+        text: "اللَّهُمَّ احْفَظْنِي مِنْ بَيْنِ يَدَيَّ وَمِنْ خَلْفِي وَعَنْ يَمِينِي وَعَنْ شِمَالِي وَمِنْ فَوْقِي، وَأَعُوذُ بِعَظَمَتِكَ أَنْ أُغْتَالَ مِنْ تَحْتِي",
+        source: "سنن أبي داود وصححه الألباني",
+        translation: "سؤال الله الحفظ من جميع الجهات"
+    },
+    {
+        category: "friday",
+        text: "الصلاة على النبي ﷺ",
+        source: "ابدأ بها يوم الجمعة
+<br><button onclick="openKahf()">📖 سورة الكهف</button>",
+        translation: "أكثروا من الصلاة على النبي ﷺ في يوم الجمعة
+<br><button onclick="openKahf()">📖 سورة الكهف</button>"
+    },
+    {
+        category: "friday",
+        text: "اللَّهُمَّ صَلِّ وَسَلِّمْ عَلَى نَبِيِّنَا مُحَمَّدٍ",
+        source: "صلاة على النبي ﷺ",
+        translation: ""
+    },
+    {
+        category: "friday",
+        text: "اللَّهُمَّ صَلِّ عَلَى مُحَمَّدٍ وَعَلَى آلِ مُحَمَّدٍ، كَمَا صَلَّيْتَ عَلَى إِبْرَاهِيمَ وَعَلَى آلِ إِبْرَاهِيمَ، إِنَّكَ حَمِيدٌ مَجِيدٌ",
+        source: "الصلاة الإبراهيمية",
+        translation: ""
+    },
+    {
+        category: "friday",
+        text: "اللَّهُمَّ بَارِكْ عَلَى مُحَمَّدٍ وَعَلَى آلِ مُحَمَّدٍ، كَمَا بَارَكْتَ عَلَى إِبْرَاهِيمَ وَعَلَى آلِ إِبْرَاهِيمَ، إِنَّكَ حَمِيدٌ مَجِيدٌ",
+        source: "الصلاة الإبراهيمية",
+        translation: ""
+    },
+    {
+        category: "friday",
+        text: "سورة الكهف",
+        source: "اضغط للقراءة",
+        translation: "https://quran.com/ar/18?startingVerse=2"
+    },
+    {
+        category: "friday",
+        text: "أدعية يوم الجمعة
+<br><button onclick="openKahf()">📖 سورة الكهف</button>",
+        source: "بعد الصلاة على النبي ﷺ",
+        translation: ""
+    },
+    {
+        category: "friday",
+        text: "اللَّهُمَّ اجْعَلْ لَنَا فِي يَوْمِ الجُمُعَةِ دُعَاءً لَا يُرَدُّ، وَرِزْقًا لَا يُعَدُّ، وَافْتَحْ لَنَا بَابًا إِلَى الجَنَّةِ لَا يُسَدُّ",
+        source: "دعاء ليوم الجمعة
+<br><button onclick="openKahf()">📖 سورة الكهف</button>",
+        translation: ""
+    },
+    {
+        category: "friday",
+        text: "اللَّهُمَّ إِنِّي أَسْأَلُكَ مِنَ الخَيْرِ كُلِّهِ، عَاجِلِهِ وَآجِلِهِ، مَا عَلِمْتُ مِنْهُ وَمَا لَمْ أَعْلَمْ، وَأَعُوذُ بِكَ مِنَ الشَّرِّ كُلِّهِ، عَاجِلِهِ وَآجِلِهِ، مَا عَلِمْتُ مِنْهُ وَمَا لَمْ أَعْلَمْ",
+        source: "من جوامع الدعاء",
+        translation: ""
+    },
+    {
+        category: "friday",
+        text: "اللَّهُمَّ أَصْلِحْ لِي دِينِيَ الَّذِي هُوَ عِصْمَةُ أَمْرِي، وَأَصْلِحْ لِي دُنْيَايَ الَّتِي فِيهَا مَعَاشِي، وَأَصْلِحْ لِي آخِرَتِيَ الَّتِي فِيهَا مَعَادِي، وَاجْعَلِ الحَيَاةَ زِيَادَةً لِي فِي كُلِّ خَيْرٍ، وَاجْعَلِ المَوْتَ رَاحَةً لِي مِنْ كُلِّ شَرٍّ",
+        source: "صحيح مسلم",
+        translation: ""
+    },
+    {
+        category: "friday",
+        text: "اللَّهُمَّ إِنَّكَ عَفُوٌّ تُحِبُّ العَفْوَ فَاعْفُ عَنِّي",
+        source: "دعاء جامع",
+        translation: ""
+    },
+    {
+        category: "friday",
+        text: "اللَّهُمَّ اكْفِنِي بِحَلَالِكَ عَنْ حَرَامِكَ، وَأَغْنِنِي بِفَضْلِكَ عَمَّنْ سِوَاكَ",
+        source: "دعاء الرزق والكفاية",
+        translation: ""
+    },
+    {
+        category: "friday",
+        text: "اللَّهُمَّ اجْعَلْ لَنَا مِنْ كُلِّ هَمٍّ فَرَجًا، وَمِنْ كُلِّ ضِيقٍ مَخْرَجًا، وَمِنْ كُلِّ بَلَاءٍ عَافِيَةً",
+        source: "دعاء الفرج",
+        translation: ""
+    },
+    {
+        category: "friday",
+        text: "اللَّهُمَّ ارْزُقْنَا طُمَأْنِينَةَ القَلْبِ، وَرَاحَةَ البَالِ، وَسَعَةَ الرِّزْقِ، وَبَرَكَةً فِي العُمْرِ وَالعَمَلِ",
+        source: "دعاء الطمأنينة والبركة",
+        translation: ""
+    },
+    {
+        category: "friday",
+        text: "ساعة الاستجابة",
+        source: "آخر ساعة قبل المغرب",
+        translation: "هذا وقت تُرجى فيه الإجابة يوم الجمعة
+<br><button onclick="openKahf()">📖 سورة الكهف</button>"
+    },
+    {
+        category: "friday",
+        text: "اللَّهُمَّ إِنَّكَ عَفُوٌّ تُحِبُّ العَفْوَ فَاعْفُ عَنِّي",
+        source: "ساعة الاستجابة",
+        translation: ""
+    },
+    {
+        category: "friday",
+        text: "اللَّهُمَّ لَا تَرُدَّ لِي دُعَاءً، وَلَا تُخَيِّبْ لِي رَجَاءً",
+        source: "ساعة الاستجابة",
+        translation: ""
+    },
+    {
+        category: "friday",
+        text: "اللَّهُمَّ حَقِّقْ لِي مَا أَتَمَنَّى، وَاكْتُبْ لِي الخَيْرَ حَيْثُ كَانَ",
+        source: "ساعة الاستجابة",
+        translation: ""
+    },
+    {
+        category: "friday",
+        text: "اللَّهُمَّ فَرِّجْ هَمِّي، وَيَسِّرْ أَمْرِي، وَارْزُقْنِي مِنْ حَيْثُ لَا أَحْتَسِبُ",
+        source: "ساعة الاستجابة",
+        translation: ""
+    }
+];
+
+// Render duas
+function renderDuas(category = 'all') {
+    const container = document.getElementById('duasContainer');
+    const noResults = document.getElementById('noResults');
+    container.innerHTML = '';
+
+    const filtered = category === 'all' ? duas : duas.filter(d => d.category === category);
+
+    if (filtered.length === 0) {
+        noResults.style.display = 'block';
+        return;
+    }
+    noResults.style.display = 'none';
+
+    filtered.forEach((dua, index) => {
+        const card = document.createElement('div');
+        card.className = 'dua-card';
+        card.innerHTML = `
+            <span class="dua-category-label">${getCategoryLabel(dua.category)}</span>
+            <div class="dua-text">${dua.text}</div>
+            ${dua.source ? `<div class="dua-source">📖 ${dua.source}</div>` : ''}
+            ${dua.translation ? `<div class="dua-translation">${dua.translation.startsWith('http') ? `<a href="${dua.translation}" target="_blank" style="color: var(--gold-light); text-decoration: none;">📖 قراءة سورة الكهف</a>` : dua.translation}</div>` : ''}
+            <div class="dua-actions">
+                <button class="action-btn" onclick="copyDua(this, '${dua.text.replace(/'/g, "\\'")}')">
+                    📋 نسخ
+                </button>
+                <button class="action-btn" onclick="shareDua('${dua.text.replace(/'/g, "\\'")}')">
+                    🔗 مشاركة
+                </button>
+            </div>
+        `;
+        container.appendChild(card);
+
+        // Staggered animation
+        setTimeout(() => card.classList.add('visible'), 100 + index * 80);
+    });
+}
+
+function getCategoryLabel(cat) {
+    const labels = {
+        morning: '🌅 أذكار الصباح',
+        evening: '🌙 أذكار المساء',
+        quran: '📖 دعاء قرآني',
+        prophet: '🕌 دعاء نبوي',
+        daily: '☀️ دعاء يومي',
+        relief: '🤲 دعاء الفرج',
+        protection: '🛡️ تحصين النفس',
+        friday: '🕌 يوم الجمعة
+<br><button onclick="openKahf()">📖 سورة الكهف</button>'
+    };
+    return labels[cat] || cat;
+}
+
+// Category switching
+document.querySelectorAll('.cat-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+        document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        renderDuas(btn.dataset.cat);
+    });
+});
+
+// Copy function
+function copyDua(btn, text) {
+    navigator.clipboard.writeText(text).then(() => {
+        btn.classList.add('copied');
+        btn.innerHTML = '✓ تم النسخ';
+        setTimeout(() => {
+            btn.classList.remove('copied');
+            btn.innerHTML = '📋 نسخ';
+        }, 2000);
+    });
+}
+
+// Share function
+function shareDua(text) {
+    if (navigator.share) {
+        navigator.share({ title: 'دعاء', text: text });
+    } else {
+        copyDua(event.target, text);
+    }
+}
+
+// Counter
+let count = parseInt(localStorage.getItem('tasbeeh') || '0');
+document.getElementById('counter').textContent = count;
+
+function incrementCounter() {
+    count++;
+    const display = document.getElementById('counter');
+    display.textContent = count;
+    display.classList.add('pulse');
+    setTimeout(() => display.classList.remove('pulse'), 200);
+    localStorage.setItem('tasbeeh', count);
+}
+
+function resetCounter() {
+    count = 0;
+    document.getElementById('counter').textContent = 0;
+    localStorage.setItem('tasbeeh', 0);
+}
+
+// Scroll to top button
+window.addEventListener('scroll', () => {
+    const btn = document.getElementById('scrollTop');
+    btn.classList.toggle('show', window.scrollY > 400);
+});
+
+// Initial render
+renderDuas();
+
+// Prayer Times
+async function fetchPrayerTimes(lat, lng) {
+    try {
+        const today = new Date();
+        const dd = String(today.getDate()).padStart(2, '0');
+        const mm = String(today.getMonth() + 1).padStart(2, '0');
+        const yyyy = today.getFullYear();
+        const dateStr = `${dd}-${mm}-${yyyy}`;
+        
+        const res = await fetch(`https://api.aladhan.com/v1/timings/${dateStr}?latitude=${lat}&longitude=${lng}&method=4`);
+        const data = await res.json();
+        const timings = data.data.timings;
+        
+        function to12h(time) {
+            let [h, m] = time.split(':').map(Number);
+            const period = h >= 12 ? 'PM' : 'AM';
+            h = h % 12 || 12;
+            return `${h}:${String(m).padStart(2, '0')} ${period}`;
+        }
+        
+        document.getElementById('fajr').textContent = to12h(timings.Fajr);
+        document.getElementById('sunrise').textContent = to12h(timings.Sunrise);
+        document.getElementById('dhuhr').textContent = to12h(timings.Dhuhr);
+        document.getElementById('asr').textContent = to12h(timings.Asr);
+        document.getElementById('maghrib').textContent = to12h(timings.Maghrib);
+        document.getElementById('isha').textContent = to12h(timings.Isha);
+        
+        // Highlight next prayer
+        highlightNextPrayer(timings);
+        
+        // Get city name
+        const locationName = data.data.meta.timezone || '';
+        document.getElementById('prayerLocation').textContent = locationName.replace('/', ' - ') + ' 📍';
+        
+    } catch (e) {
+        document.getElementById('prayerLocation').textContent = 'تعذر تحميل المواقيت';
+    }
+}
+
+function highlightNextPrayer(timings) {
+    const now = new Date();
+    const currentMinutes = now.getHours() * 60 + now.getMinutes();
+    
+    const prayers = [
+        { id: 'fajr', name: 'الفجر', time: timings.Fajr },
+        { id: 'sunrise', name: 'الشروق', time: timings.Sunrise },
+        { id: 'dhuhr', name: 'الظهر', time: timings.Dhuhr },
+        { id: 'asr', name: 'العصر', time: timings.Asr },
+        { id: 'maghrib', name: 'المغرب', time: timings.Maghrib },
+        { id: 'isha', name: 'العشاء', time: timings.Isha }
+    ];
+    
+    let nextPrayer = null;
+    for (const prayer of prayers) {
+        const [h, m] = prayer.time.split(':').map(Number);
+        const prayerMinutes = h * 60 + m;
+        if (prayerMinutes > currentMinutes) {
+            nextPrayer = prayer;
+            break;
+        }
+    }
+    
+    if (nextPrayer) {
+        const cards = document.querySelectorAll('.prayer-card');
+        const index = prayers.findIndex(p => p.id === nextPrayer.id);
+        if (index >= 0 && cards[index]) {
+            cards[index].classList.add('active-prayer');
+        }
+        
+        // Countdown timer
+        function updateCountdown() {
+            const now2 = new Date();
+            const [ph, pm] = nextPrayer.time.split(':').map(Number);
+            const prayerTotal = ph * 3600 + pm * 60;
+            const nowTotal = now2.getHours() * 3600 + now2.getMinutes() * 60 + now2.getSeconds();
+            let diff = prayerTotal - nowTotal;
+            
+            if (diff <= 0) {
+                document.getElementById('prayerNext').textContent = '🕌 حان وقت الصلاة!';
+                clearInterval(countdownInterval);
+                return;
+            }
+            
+            const hours = Math.floor(diff / 3600);
+            const mins = Math.floor((diff % 3600) / 60);
+            const secs = diff % 60;
+            
+            let remaining = '';
+            if (hours > 0) remaining += `${hours} ساعة و`;
+            remaining += `${mins} دقيقة و${secs} ثانية`;
+            
+            document.getElementById('prayerNext').innerHTML = `⏳ الصلاة القادمة: <strong>${nextPrayer.name}</strong> — متبقي ${remaining}`;
+        }
+        
+        updateCountdown();
+        const countdownInterval = setInterval(updateCountdown, 1000);
+    }
+}
+
+// Get user location for prayer times
+if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(
+        pos => fetchPrayerTimes(pos.coords.latitude, pos.coords.longitude),
+        () => {
+            // Default to Riyadh if location denied
+            fetchPrayerTimes(24.7136, 46.6753);
+            document.getElementById('prayerLocation').textContent = 'الرياض (افتراضي) 📍';
+        }
+    );
+} else {
+    fetchPrayerTimes(24.7136, 46.6753);
+    document.getElementById('prayerLocation').textContent = 'الرياض (افتراضي) 📍';
+}
+
+// Theme Toggle
+function toggleTheme() {
+    document.body.classList.toggle('dark-mode');
+    const isDark = document.body.classList.contains('dark-mode');
+    document.getElementById('themeToggle').textContent = isDark ? '☀️' : '🌙';
+    localStorage.setItem('theme', isDark ? 'dark' : 'blue');
+}
+
+// Auto theme based on time of day
+function autoTheme() {
+    const saved = localStorage.getItem('theme');
+    if (saved) {
+        if (saved === 'dark') {
+            document.body.classList.add('dark-mode');
+            document.getElementById('themeToggle').textContent = '☀️';
+        }
+        return;
+    }
+    // Auto: dark-mode (black) between 6 PM and 6 AM
+    const hour = new Date().getHours();
+    if (hour >= 18 || hour < 6) {
+        document.body.classList.add('dark-mode');
+        document.getElementById('themeToggle').textContent = '☀️';
+    }
+}
+autoTheme();
+</script>
+
+
+<!-- ===== KAHF MODAL ===== -->
+<div id="kahfModal" style="
+display:none;
+position:fixed;
+inset:0;
+background:rgba(0,0,0,0.9);
+z-index:9999;
+justify-content:center;
+align-items:center;
+">
+  <div style="
+  width:95%;
+  height:90%;
+  background:#000;
+  border-radius:20px;
+  overflow:hidden;
+  position:relative;
+  ">
+    <button onclick="closeKahf()" style="
+    position:absolute;
+    top:10px;
+    left:10px;
+    z-index:10;
+    background:red;
+    color:white;
+    border:none;
+    padding:8px 12px;
+    border-radius:10px;
+    ">✖</button>
+
+    <iframe src="سورة الكهف في صفحة واحدة للجوالات.pdf"
+    style="width:100%; height:100%; border:none;"></iframe>
+  </div>
+</div>
+
+<script>
+function openKahf(){
+  document.getElementById("kahfModal").style.display="flex";
+}
+function closeKahf(){
+  document.getElementById("kahfModal").style.display="none";
+}
+</script>
+
+</body>
+</html>
