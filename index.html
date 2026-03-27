@@ -640,8 +640,7 @@
     <button class="cat-btn" data-cat="daily">أدعية يومية</button>
     <button class="cat-btn" data-cat="relief">أدعية الفرج</button>
     <button class="cat-btn" data-cat="protection">تحصين النفس</button>
-    <button class="cat-btn" data-cat="friday">يوم الجمعة
-<br><button onclick="openKahf()">📖 سورة الكهف</button></button>
+    <button class="cat-btn" data-cat="friday">يوم الجمعة</button>
 </nav>
 
 <div class="quran-link-section">
@@ -942,10 +941,8 @@ const duas = [
     {
         category: "friday",
         text: "الصلاة على النبي ﷺ",
-        source: "ابدأ بها يوم الجمعة
-<br><button onclick="openKahf()">📖 سورة الكهف</button>",
-        translation: "أكثروا من الصلاة على النبي ﷺ في يوم الجمعة
-<br><button onclick="openKahf()">📖 سورة الكهف</button>"
+        source: "ابدأ بها يوم الجمعة",
+        translation: "أكثروا من الصلاة على النبي ﷺ في يوم الجمعة"
     },
     {
         category: "friday",
@@ -973,16 +970,14 @@ const duas = [
     },
     {
         category: "friday",
-        text: "أدعية يوم الجمعة
-<br><button onclick="openKahf()">📖 سورة الكهف</button>",
+        text: "أدعية يوم الجمعة",
         source: "بعد الصلاة على النبي ﷺ",
         translation: ""
     },
     {
         category: "friday",
         text: "اللَّهُمَّ اجْعَلْ لَنَا فِي يَوْمِ الجُمُعَةِ دُعَاءً لَا يُرَدُّ، وَرِزْقًا لَا يُعَدُّ، وَافْتَحْ لَنَا بَابًا إِلَى الجَنَّةِ لَا يُسَدُّ",
-        source: "دعاء ليوم الجمعة
-<br><button onclick="openKahf()">📖 سورة الكهف</button>",
+        source: "دعاء ليوم الجمعة",
         translation: ""
     },
     {
@@ -1025,8 +1020,7 @@ const duas = [
         category: "friday",
         text: "ساعة الاستجابة",
         source: "آخر ساعة قبل المغرب",
-        translation: "هذا وقت تُرجى فيه الإجابة يوم الجمعة
-<br><button onclick="openKahf()">📖 سورة الكهف</button>"
+        translation: "هذا وقت تُرجى فيه الإجابة يوم الجمعة"
     },
     {
         category: "friday",
@@ -1101,8 +1095,7 @@ function getCategoryLabel(cat) {
         daily: '☀️ دعاء يومي',
         relief: '🤲 دعاء الفرج',
         protection: '🛡️ تحصين النفس',
-        friday: '🕌 يوم الجمعة
-<br><button onclick="openKahf()">📖 سورة الكهف</button>'
+        friday: '🕌 يوم الجمعة'
     };
     return labels[cat] || cat;
 }
@@ -1305,51 +1298,6 @@ function autoTheme() {
     }
 }
 autoTheme();
-</script>
-
-
-<!-- ===== KAHF MODAL ===== -->
-<div id="kahfModal" style="
-display:none;
-position:fixed;
-inset:0;
-background:rgba(0,0,0,0.9);
-z-index:9999;
-justify-content:center;
-align-items:center;
-">
-  <div style="
-  width:95%;
-  height:90%;
-  background:#000;
-  border-radius:20px;
-  overflow:hidden;
-  position:relative;
-  ">
-    <button onclick="closeKahf()" style="
-    position:absolute;
-    top:10px;
-    left:10px;
-    z-index:10;
-    background:red;
-    color:white;
-    border:none;
-    padding:8px 12px;
-    border-radius:10px;
-    ">✖</button>
-
-    <iframe src="سورة الكهف في صفحة واحدة للجوالات.pdf"
-    style="width:100%; height:100%; border:none;"></iframe>
-  </div>
-</div>
-
-<script>
-function openKahf(){
-  document.getElementById("kahfModal").style.display="flex";
-}
-function closeKahf(){
-  document.getElementById("kahfModal").style.display="none";
-}
 </script>
 
 </body>
